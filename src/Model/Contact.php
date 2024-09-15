@@ -48,4 +48,10 @@ class Contact {
         $stmt = $this->pdo->prepare("DELETE FROM contacts WHERE id = :id");
         $stmt->execute(['id' => $id]);
     }
+    public function getAllsort($sortColumn = 'name', $sortOrder = 'ASC') {
+        $stmt = $this->pdo->prepare("SELECT * FROM contacts ORDER BY $sortColumn $sortOrder");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    
 }

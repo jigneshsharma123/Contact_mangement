@@ -1,7 +1,6 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
 require __DIR__ .'/../vendor/autoload.php';
 
 use JigneshSharma\New\Model\Contact; 
@@ -67,13 +66,16 @@ $form = new Form($fieldConfigs);
       <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Contact Manager</h1>
-            <!-- Add New Contact Button -->
-            <a href="/" class="btn-add">Add New Contact</a>
-            <button id="theme-toggle" class="btn-add">Toggle Dark Mode</button>
-        </div>
+<div class="container">
+    <div class="header">
+        <h1>Contact Manager</h1>
+        <a href="/" class="btn-add">Add New Contact</a>
+        <button id="theme-toggle" class="btn-add">
+            <span id="theme-icon">🌙</span> 
+        </button>
+        <a href="/export.php" class="btn-add">Export to CSV</a>
+
+    </div>
 
         <!-- Render the form -->
         <form method="POST" action="">
@@ -100,6 +102,7 @@ $form = new Form($fieldConfigs);
         <h2>Contacts List</h2> <br>
         <div class="search-container">
     <input type="text" id="searchInput" placeholder="Search for contacts..." onkeyup="searchContacts()">
+    
 </div>
 
         <table>
@@ -129,26 +132,60 @@ $form = new Form($fieldConfigs);
         </table>
     </div>
     <script>
-        // Select the toggle button
-        const themeToggleButton = document.getElementById('theme-toggle');
+         // Select the toggle button and icon
+    const themeToggleButton = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
 
-        // Check for saved preference from localStorage
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
+    // Check for saved preference from localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeIcon.textContent = '☀️'; // Set to sun icon when dark mode is active
+    } else {
+        themeIcon.textContent = '🌙'; // Set to moon icon for light mode
+    }
+
+    // Add click event to the toggle button
+    themeToggleButton.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+
+        // Switch icons based on current theme
+        if (document.body.classList.contains('dark-mode')) {
+            themeIcon.textContent = '☀️'; // Switch to sun for dark mode
+            localStorage.setItem('theme', 'dark'); // Save dark mode in localStorage
+        } else {
+            themeIcon.textContent = '🌙'; // Switch to moon for light mode
+            localStorage.setItem('theme', 'light'); // Save light mode in localStorage
         }
+    });
+        function searchContacts() {
+        var input = document.getElementById("searchInput").value.toUpperCase();
+        var table = document.querySelector("table tbody");
+        var tr = table.getElementsByTagName("tr");
 
-        // Add click event to the toggle button
-        themeToggleButton.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            
-            // Save theme preference in localStorage
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
+        for (var i = 0; i < tr.length; i++) {
+            var tdName = tr[i].getElementsByTagName("td")[0];
+            var tdPhone = tr[i].getElementsByTagName("td")[1];
+            var tdEmail = tr[i].getElementsByTagName("td")[2];
+            var tdAddress = tr[i].getElementsByTagName("td")[3];
+
+            if (tdName || tdPhone || tdEmail || tdAddress) {
+                var nameValue = tdName.textContent || tdName.innerText;
+                var phoneValue = tdPhone.textContent || tdPhone.innerText;
+                var emailValue = tdEmail.textContent || tdEmail.innerText;
+                var addressValue = tdAddress.textContent || tdAddress.innerText;
+
+                if (nameValue.toUpperCase().indexOf(input) > -1 ||
+                    phoneValue.toUpperCase().indexOf(input) > -1 ||
+                    emailValue.toUpperCase().indexOf(input) > -1 ||
+                    addressValue.toUpperCase().indexOf(input) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
             }
-        });
+        }
+    }
     </script>
 </body>
 </html>
