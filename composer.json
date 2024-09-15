@@ -1,0 +1,15 @@
+{
+    "name": "jignesh-sharma/new",
+    "description": "contact-management",
+    "autoload": {
+        "psr-4": {
+            "JigneshSharma\\New\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jignesh sharma"
+        }
+    ],
+    "require": {}
+}

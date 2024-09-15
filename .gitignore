@@ -1,0 +1,60 @@
+# Composer dependencies
+/vendor/
+/composer.lock
+
+# Node dependencies
+/node_modules/
+
+# Local development environment files
+.env
+.env.*.local
+
+# PHPStorm project files
+.idea/
+
+# Mac system files
+.DS_Store
+
+# Log files
+*.log
+*.log.*
+
+# PHPUnit test result cache
+.phpunit.result.cache
+
+# Cache & temp files
+/cache/
+/tmp/
+/*.cache
+/*.tmp
+
+# Backup files
+*.bak
+*.swp
+*.swo
+*.orig
+
+# Generated files
+/public/build/
+/public/uploads/
+
+# Ignore compiled PHP extensions
+*.so
+
+# Ignore coverage reports
+coverage/
+
+# Ignore IDE config files
+*.vscode
+*.sublime-project
+*.sublime-workspace
+
+# Ignore PHP CS Fixer and coding standard tool caches
+.php_cs.cache
+.php_cs.dist
+
+# Ignore git hooks if using them
+/.githooks/
+
+# Ignore SFTP config file if using SFTP
+.sftpconfig
