@@ -76,3 +76,12 @@ The Advanced Contact Management System is a PHP-based web application for managi
 
    - Open your web browser and navigate to the URL where your application is hosted.
    - You should see the contact management system interface.
+
+
+
+ ***output Video Link*** 
+
+  https://youtu.be/gjjAcNjIslo
+
+  move to the 04:05 timeline to see the output. 
+  rest of the video about explaining the code. 
